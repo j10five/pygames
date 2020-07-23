@@ -45,7 +45,7 @@ shellImg = [pygame.image.load('shell1a.png'),pygame.image.load('shell2a.png'),py
 shellnames = []
 shellImgIndex = [0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8]
 speed_list = ['0.1', '0.2', '0.05', '0.025', '0.3', '0.4']
-NumOfShells = 54
+NumOfShells = 45
 catchImgIndex = 9
 for i in range(NumOfShells):
     shellY.append(random.randint(175,567))
@@ -54,12 +54,21 @@ for i in range(NumOfShells):
 
 #Score
 score_value = 0
+highScore = 0
 font = pygame.font.Font('Organo.ttf', 22)
 scoretextX = 10
 scoretextY = 10
 def show_score(x, y):
+    global highScore
+    global score_value
     score = font.render("Score " + str(score_value), True, (255, 255, 255))
     screen.blit(score, (x, y))
+    if score_value > 0:
+        if highScore < score_value:
+            highScore = score_value
+    scoreRecord = font.render("High Score " + str(highScore), True, (255, 255, 255))
+    screen.blit(scoreRecord, (x + 125, y))
+
 
 def score(shellImgIndex):
     global score_value
