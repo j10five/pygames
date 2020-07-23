@@ -20,7 +20,7 @@ playerX = 150
 playerY = 320
 playerX_change = 0
 playerY_change = 0
-playerspeed = 1
+playerspeed = 3
 # net - Icons made by <a href="https://www.flaticon.com/free-icon/net_2764644" title="surang">surang</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 netImg = pygame.image.load('net.png')
 netX = 720
@@ -38,25 +38,19 @@ mixer.music.play(-1)
 
 # shells - Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 shelllist = ('a', 'b', 'c')
-shelldir = (-0.01, 0.01)
 shellX = []
 shellY =  []
 shellX_change = []
-shellY_change = []
-shellImg = []
+shellImg = [pygame.image.load('shell1a.png'),pygame.image.load('shell2a.png'),pygame.image.load('shell3a.png'),pygame.image.load('shell1b.png'),pygame.image.load('shell2b.png'),pygame.image.load('shell3b.png'),pygame.image.load('shell1c.png'),pygame.image.load('shell2c.png'),pygame.image.load('shell3c.png'),]
 shellnames = []
-initshellX = []
-initshellY = []
-NumOfShells = 15
+shellImgIndex = [0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8]
+speed_list = ['0.1', '0.2', '0.05', '0.025', '0.3', '0.4']
+NumOfShells = 54
+catchImgIndex = 9
 for i in range(NumOfShells):
-    shellX.append(random.randint(16,769))
     shellY.append(random.randint(175,567))
-    shellX_change.append(random.choice(shelldir))
-    shellY_change.append(random.choice(shelldir))
-    shellImg.append(pygame.image.load('shell'+str(random.randint(1,3))+random.choice(shelllist)+'.png'))
-    initshellX.append(shellX[i])
-    initshellY.append(shellY[i])
-    
+    shellX.append(random.randint(803,1500))
+    shellX_change.append(random.choice(speed_list))
 
 #Score
 score_value = 0
@@ -66,19 +60,104 @@ scoretextY = 10
 def show_score(x, y):
     score = font.render("Score " + str(score_value), True, (255, 255, 255))
     screen.blit(score, (x, y))
+
+def score(shellImgIndex):
+    global score_value
+    global catchImgIndex
+    global currentTime
+    if catchImgIndex == 9:
+        score_value += 1
+        catchImgIndex = shellImgIndex
+    elif catchImgIndex == 8:
+        if shellImgIndex == 8 or shellImgIndex == 7 or shellImgIndex == 6 or shellImgIndex == 5 or shellImgIndex == 2:
+            score_value = 0
+            currentTime = 0
+            catchImgIndex = 9
+        elif shellImgIndex == 0 or shellImgIndex == 1 or shellImgIndex == 3 or shellImgIndex == 4:
+            score_value += 1
+            catchImgIndex = shellImgIndex
+    elif catchImgIndex == 7:
+        if shellImgIndex == 8 or shellImgIndex == 7 or shellImgIndex == 6 or shellImgIndex == 4 or shellImgIndex == 1:
+            score_value = 0
+            currentTime = 0
+            catchImgIndex = 9
+        elif shellImgIndex == 0 or shellImgIndex == 2 or shellImgIndex == 5 or shellImgIndex == 3:
+            score_value += 1
+            catchImgIndex = shellImgIndex
+    elif catchImgIndex == 6:
+        if shellImgIndex == 8 or shellImgIndex == 7 or shellImgIndex == 6 or shellImgIndex == 0 or shellImgIndex == 3:
+            score_value = 0
+            currentTime = 0
+            catchImgIndex = 9
+        elif shellImgIndex == 1 or shellImgIndex == 2 or shellImgIndex == 4 or shellImgIndex == 5:
+            score_value += 1
+            catchImgIndex = shellImgIndex
+    elif catchImgIndex == 5:
+        if shellImgIndex == 3 or shellImgIndex == 4 or shellImgIndex == 5 or shellImgIndex == 8 or shellImgIndex == 2:
+            score_value = 0
+            currentTime = 0
+            catchImgIndex = 9
+        elif shellImgIndex == 0 or shellImgIndex == 1 or shellImgIndex == 6 or shellImgIndex == 7:
+            score_value += 1
+            catchImgIndex = shellImgIndex
+    elif catchImgIndex == 4:
+        if shellImgIndex == 3 or shellImgIndex == 4 or shellImgIndex == 5 or shellImgIndex == 7 or shellImgIndex == 1:
+            score_value = 0
+            currentTime = 0
+            catchImgIndex = 9
+        elif shellImgIndex == 0 or shellImgIndex == 2 or shellImgIndex == 6 or shellImgIndex == 8:
+            score_value += 1
+            catchImgIndex = shellImgIndex
+    elif catchImgIndex == 3:
+        if shellImgIndex == 3 or shellImgIndex == 4 or shellImgIndex == 5 or shellImgIndex == 0 or shellImgIndex == 6:
+            score_value = 0
+            currentTime = 0
+            catchImgIndex = 9
+        elif shellImgIndex == 1 or shellImgIndex == 2 or shellImgIndex == 7 or shellImgIndex == 8:
+            score_value += 1
+            catchImgIndex = shellImgIndex
+    elif catchImgIndex == 2:
+        if shellImgIndex == 0 or shellImgIndex == 1 or shellImgIndex == 2 or shellImgIndex == 5 or shellImgIndex == 8:
+            score_value = 0
+            currentTime = 0
+            catchImgIndex = 9
+        elif shellImgIndex == 3 or shellImgIndex == 4 or shellImgIndex == 6 or shellImgIndex == 7:
+            score_value += 1
+            catchImgIndex = shellImgIndex
+    elif catchImgIndex == 1:
+        if shellImgIndex == 0 or shellImgIndex == 1 or shellImgIndex == 2 or shellImgIndex == 4 or shellImgIndex == 7:
+            score_value = 0
+            currentTime = 0
+            catchImgIndex = 9
+        elif shellImgIndex == 3 or shellImgIndex == 5 or shellImgIndex == 6 or shellImgIndex == 8:
+            score_value += 1
+            catchImgIndex = shellImgIndex
+    elif catchImgIndex == 0:
+        if shellImgIndex == 0 or shellImgIndex == 1 or shellImgIndex == 2 or shellImgIndex == 3 or shellImgIndex == 6:
+            score_value = 0
+            currentTime = 0
+            catchImgIndex = 9
+        elif shellImgIndex == 4 or shellImgIndex == 5 or shellImgIndex == 7 or shellImgIndex == 8:
+            score_value += 1
+            catchImgIndex = shellImgIndex
+
 #Clock
-clock_value = 10
+timer = pygame.time.Clock()
+currentTime = 0
+collisionTime = 0
 clocktextX = 10
 clocktextY = 40
+
 def show_clock(x, y):
-    clock = font.render("Timer "+ str(clock_value), True, (255, 255, 255))
+    clockTime = int(((currentTime - collisionTime)/1000))
+    clock = font.render("Timer "+ str(clockTime), True, (255, 255, 255))
     screen.blit(clock, (x, y))
 
 def player(x, y):
     screen.blit(playerImg, (x, y))   
 
 def shell(x, y, i):
-    screen.blit(shellImg[i], (x, y))
+    screen.blit(shellImg[shellImgIndex[i]], (x, y))
 
 def net(x,y):
     screen.blit(netImg, (x, y))
@@ -132,35 +211,26 @@ while running:
     # create some moving shells
     for i in range(NumOfShells):
         shell(shellX[i], shellY[i], i)
-        shellX[i] += shellX_change[i]
-        shellY[i] += shellY_change[i]
-        if shellX[i] >= initshellX[i] + 5:
-            shellX_change[i] -= 0.001
-        elif shellX[i] <= initshellX[i] - 5:
-            shellX_change[i] += 0.001
-        elif shellY[i] >= initshellY[i] + 5:
-            shellY_change[i] -= 0.001
-        elif shellY[i] <= initshellY[i] - 5:
-            shellY_change[i] += 0.001  
+        shellX[i]-= float(shellX_change[i])
         collision = isCollision(shellX[i],shellY[i],playerX,playerY)
+        if shellX[i] <= 0:
+            shellX[i] = random.randint(803,1500)
         if collision:
             splash_sound = mixer.Sound('splash.wav')
             splash_sound.play()
-            score_value += 1
-            shellX[i] = random.randint(16,769)
-            initshellX[i] = shellX[i]
             shellY[i] = random.randint(175,567)
-            initshellY[i] = shellY[i]
-            catchImg = shellImg[i]
+            shellX[i] = random.randint(803,1500)
+            shellX_change[i] = random.choice(speed_list)
+            catchImg = shellImg[shellImgIndex[i]]
+            score(shellImgIndex[i])
             last_catch(netX, netY)
-            #print(pygame.surface.__name__(shellImg[i]) )
-               
-        
-
+            collisionTime = pygame.time.get_ticks()
+     
+    currentTime = pygame.time.get_ticks()
     player(playerX, playerY)
     net(netX, netY)
     last_catch(netX,netY)
     show_score(scoretextX, scoretextY)
     show_clock(clocktextX, clocktextY)
-    
-    pygame.display.update() 
+    pygame.display.update()
+    timer.tick(120)
