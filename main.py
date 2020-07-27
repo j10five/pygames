@@ -28,6 +28,8 @@ catchX = 0
 catchY = 0
 #background
 background = pygame.image.load('riverbank.png')
+#menu
+splash = pygame.image.load('title_screen.png')
 # Music
 mixer.music.load('music.wav')
 mixer.music.play(-1)
@@ -215,14 +217,29 @@ def isCollision(shellX,shellY,playerX,playerY):
         return True
     return False
 ########### Game Loop - Infinite loop ####################
+menu = True 
 running = True
 while running:
+    while menu:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    menu = False
+        screen.fill((0,0,0))
+        screen.blit(splash,(0,0))
+        pygame.display.update()
+
     screen.fill((204, 229, 255)) # rgb parameters
     screen.blit(background,(0, 0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 # check for keystrokes
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_p:
+                menu = True
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 playerX_change -= playerspeed
