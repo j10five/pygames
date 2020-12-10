@@ -9,36 +9,36 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600)) 
 #Alter Title and Icon - Icons made by <a href="https://www.flaticon.com/free-icon/rafting_2503514" title="monkik">monkik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 pygame.display.set_caption("The River")
-icon = pygame.image.load('rafting.png')
+icon = pygame.image.load('data/rafting.png')
 pygame.display.set_icon(icon)
 # player
-playerImg = pygame.image.load('fisher.png') #Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+playerImg = pygame.image.load('data/fisher.png') #Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 playerX = 150
 playerY = 320
 playerX_change = 0
 playerY_change = 0
-playerspeed = 3
+playerspeed = 2.5
 # net - Icons made by <a href="https://www.flaticon.com/free-icon/net_2764644" title="surang">surang</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-netImg = pygame.image.load('net.png')
+netImg = pygame.image.load('data/net.png')
 netX = 720
 netY = 45
 # last caught shell
-catchImg = pygame.image.load('initLastCatch.png')
+catchImg = pygame.image.load('data/initLastCatch.png')
 catchX = 0
 catchY = 0
 #background
-background = pygame.image.load('riverbank.png')
+background = pygame.image.load('data/riverbank.png')
 #menu
-splash = pygame.image.load('title_screen.png')
+splash = pygame.image.load('data/title_screen.png')
 # Music
-mixer.music.load('music.wav')
+mixer.music.load('data/music.wav')
 mixer.music.play(-1)
 # shells - Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 shelllist = ('a', 'b', 'c')
 shellX = []
 shellY =  []
 shellX_change = []
-shellImg = [pygame.image.load('shell1a.png'),pygame.image.load('shell2a.png'),pygame.image.load('shell3a.png'),pygame.image.load('shell1b.png'),pygame.image.load('shell2b.png'),pygame.image.load('shell3b.png'),pygame.image.load('shell1c.png'),pygame.image.load('shell2c.png'),pygame.image.load('shell3c.png'),]
+shellImg = [pygame.image.load('data/shell1a.png'),pygame.image.load('data/shell2a.png'),pygame.image.load('data/shell3a.png'),pygame.image.load('data/shell1b.png'),pygame.image.load('data/shell2b.png'),pygame.image.load('data/shell3b.png'),pygame.image.load('data/shell1c.png'),pygame.image.load('data/shell2c.png'),pygame.image.load('data/shell3c.png'),]
 shellnames = []
 shellImgIndex = [0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8,0,1,2,3,4,5,6,7,8]
 speed_list = ['0.1', '0.2', '0.05', '0.025', '0.3', '0.4']
@@ -52,7 +52,7 @@ for i in range(NumOfShells):
 score_value = 0
 highScore = 0
 last_point = 0
-font = pygame.font.Font('Organo.ttf', 22)
+font = pygame.font.Font('data/Organo.ttf', 22)
 scoretextX = 10
 scoretextY = 10
 #Clock
@@ -213,7 +213,7 @@ def last_catch (x, y):
     screen.blit(catchImg, (x, y))
 def isCollision(shellX,shellY,playerX,playerY):
     distance = math.sqrt((math.pow(shellX-playerX,2)) + (math.pow(shellY-playerY,2))) #collision detection equation
-    if distance <27:
+    if distance <24:
         return True
     return False
 ########### Game Loop - Infinite loop ####################
@@ -223,7 +223,7 @@ while running:
     while menu:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                quit()
+                running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     menu = False
@@ -272,7 +272,7 @@ while running:
         if shellX[i] <= 0:
             shellX[i] = random.randint(803,1500)
         if collision:
-            splash_sound = mixer.Sound('splash.wav')
+            splash_sound = mixer.Sound('data/splash.wav')
             splash_sound.play()
             shellY[i] = random.randint(175,567)
             shellX[i] = random.randint(803,1500)
